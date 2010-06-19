@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Title</title>
+        <link rel="stylesheet" type="text/css" href="images/global.css" />
+        <script charset="utf-8" type="text/javascript" src="js/global.js"></script>
+        <style>
+        　　body,td{
+        　　 font-family: verdana, arial, helvetica, sans-serif;
+        　　 font-size: 12px;
+        　　}
+        </style>
+　　<script type="text/javascript">
+　　 var start=0;
+　　 var end=0;
+　　 function add(){
+    　　 var textBox = document.getElementById("ta");
+    　　 var pre = textBox.value.substr(0, start);
+    　　 var post = textBox.value.substr(end);
+    　　 textBox.value = pre + document.getElementById("inputtext").value + post;
+　　 }
+　　 function savePos(textBox){
+　　 //如果是Firefox(1.5)的话，方法很简单
+    　　 if(typeof(textBox.selectionStart) == "number"){
+    　　 start = textBox.selectionStart;
+    　　 end = textBox.selectionEnd;
+    　　 }
+　　 //下面是IE(6.0)的方法，麻烦得很，还要计算上'\n'
+　　     else if(document.selection){
+　　        var range = document.selection.createRange();
+　　        if(range.parentElement().id == textBox.id){
+    　　 // create a selection of the whole textarea
+    　　 var range_all = document.body.createTextRange();
+    　　 range_all.moveToElementText(textBox);
+    　　 //两个range，一个是已经选择的text(range)，一个是整个textarea(range_all)
+    　　 //range_all.compareEndPoints()比较两个端点，如果range_all比range更往左(further to the left)，则 //返回小于0的值，则range_all往右移一点，直到两个range的start相同。
+    　　 // calculate selection start point by moving beginning of range_all to beginning of range
+    　　 for (start=0; range_all.compareEndPoints("StartToStart", range) < 0; start++)
+    　　 range_all.moveStart('character', 1);
+    　　 // get number of line breaks from textarea start to selection start and add them to start
+    　　 // 计算一下\n
+    　　 for (var i = 0; i <= start; i ++){
+    　　    if (textBox.value.charAt(i) == '\n')
+    　　    start++;
+    　　 }
+    　　 // create a selection of the whole textarea
+    　　 var range_all = document.body.createTextRange();
+    　　 range_all.moveToElementText(textBox);
+    　　 // calculate selection end point by moving beginning of range_all to end of range
+    　　 for (end = 0; range_all.compareEndPoints('StartToEnd', range) < 0; end ++)
+    　　 range_all.moveStart('character', 1);
+    　　 // get number of line breaks from textarea start to selection end and add them to end
+    　　 for (var i = 0; i <= end; i ++){
+    　　 if (textBox.value.charAt(i) == '\n')
+        　　 end ++;
+        }
+    　　 }
+    　　 }
+    　　 document.getElementById("start").value = start;
+    　　 document.getElementById("end").value = end;
+   }
+　　</script>
+</head>
+<body>
+　　<form action="a.cgi">
+　　<table border="1" cellspacing="0" cellpadding="0">
+　　 <tr>
+　　 <td>start: <input type="text" id="start" size="3"/></td>
+　　 <td>end: <input type="text" id="end" size="3"/></td>
+　　 </tr>
+　　 <tr>
+　　 <td colspan="2">
+    　　 <textarea id="ta" onKeydown="savePos(this)"
+        　　 onKeyup="savePos(this)"
+        　　 onmousedown="savePos(this)"
+        　　 onmouseup="savePos(this)"
+        　　 onfocus="savePos(this)"
+        　　 rows="14" cols="50"></textarea>
+    　　 </td>
+    　　 </tr>
+    　　 <tr>
+    　　 <td><input type="text" id="inputtext" /></td>
+    　　 <td><input type="button" onClick="add()" value="Add Text"/></td>
+    　　 </tr>
+　　</table>
+　　</form> 
+    </body>
+</html>

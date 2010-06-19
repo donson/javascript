@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Title</title>
+        <link rel="stylesheet" type="text/css" href="images/global.css" />
+        <script charset="utf-8" type="text/javascript" src="js/global.js"></script>
+        <script type="text/javascript">
+        //把第4个移动到第一个去
+
+//        var a = [1,2,3,4,5,6]
+//        var b = a[4];//5
+//        delete (a[4])
+//        alert(a)
+//        a.splice(0,1,b)
+//        alert(a)
+
+        Array.prototype.insertAt=function(index) {
+        var part1 = this.slice(0,index);
+        var part2 = this.slice(index,index+1);
+        var part3 = this.slice(index+1,this.length);
+        return(part2.concat(part1).concat(part3));
+        };
+        var a=["a","b","c","d","e"].insertAt(3);
+        alert(a)//["d","a","b","c","e"]
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Title</title>
+        <script charset="utf-8" type="text/javascript">
+        function maxlength2(node,event, maxcount,id) {
+            var num = document.getElementById(id);
+            // 以下三步操作是为了兼容FF和IE
+            var event = event || window.event;
+            var target = event.target || event.srcElement;
+            var keyCode = event.charCode || event.keyCode;
+
+            //alert(node.selectionStart + '  '+node.selectionEnd);
+//            var range = document.selection.createRange();
+//            alert(range.toStrong());
+            // 8 - backspace , 46 - delete
+            if (keyCode < 8 || keyCode > 46) {
+                if(num){
+                    num.innerHTML = maxcount - target.value.length-1;
+                }
+                if (target.value.length >= (maxcount-1)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        function maxlength3(node, maxcount,id) {
+            
+            var num = document.getElementById(id);
+            if (node.value.length > maxcount) {
+                node.value = node.value.substr(0, maxcount);
+//                console.debug(node.selectionStart);
+//                console.debug(node.selectionEnd);
+            }
+            if(num){
+                num.innerHTML = maxcount - node.value.length;
+            }
+        }
+
+//        $('.seainputKey').select(function(){
+//            $(this).data('sel',1);
+//        }).blur(function(){
+//            $(this).data('sel',0);
+//        }).click(function(){
+//            $(this).data('sel',0);
+//        }).keydown(function(event){
+//        var maxcount = 30;
+//        var _this = $(this).get(0);
+//        var sel =  $(this).data('sel');
+//        //console.debug(sel);
+//        var keyCode = event.keyCode;
+//        if(keyCode < 8 || keyCode > 46) {
+//            if(sel == '1'){
+//                $(this).data('sel',0);
+//                return true;
+//            } 
+//            if (_this.value.length >= (maxcount-1)) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    });
+        </script>
+    </head>
+    <body>
+        <h1>js限制字符</h1>
+        <br /><br />
+        input1:<span id="in1">10</span><br /> 
+        input2:<span id="in2">10</span> 
+        <br />
+        <br />
+        <form method="post" action="test1.html">
+            <input type="text" onkeydown="return maxlength2(this,event, 10,'in1');"></input>
+            <input type="text" id="ddd" onkeyup="return maxlength3(this, 10,'in2');"></input>
+            <input type="submit" value="submit" />
+        </form>
+    </body>
+</html>

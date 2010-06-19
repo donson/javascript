@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Title</title> 
+        <script charset="utf-8" type="text/javascript" src="../jquery-1.3.2.min.js"></script>
+        <script charset="utf-8" type="text/javascript">
+        $.ajax({
+            type: "POST",
+            url: "rss.xml",
+            dataType : 'xml',
+            data: "",
+            success: handleData
+        });
+        function handleData(data){
+            //console.debug(data);
+            var rss = document.getElementById('rss');
+            var items = data.getElementsByTagName('item');
+            //console.debug(items);
+            for(var i=0;i<items.length;i++){
+                var title = items[i].getElementsByTagName('title')[0].firstChild.nodeValue;
+                var li = document.createElement('li');
+                li.innerHTML = title;
+                rss.appendChild(li);
+//                $('#rss').append(title.firstChild.nodeValue + '<br />');
+//                $('#rss').append(items[i].getElementsByTagName('description')[0].firstChild.nodeValue + '<br />');
+//                $('#rss').append(items[i].getElementsByTagName('pubDate')[0].firstChild.nodeValue + '<br /><br />');
+            }
+        }
+        </script>
+    </head>
+    <body>
+        <ol id="rss"></ol>
+    </body>
+</html>
