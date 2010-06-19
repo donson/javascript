@@ -287,6 +287,16 @@ function show (elem) {
     //设置display属性为它的原始值，如没有记录原始值，则使用block
     elem.style.display = elem.$oldDisplay || '';
 }
+//调节元素透明度
+function setOpacity (elem, level) {
+    if(elem.filters) {
+        //如果存在filters，则它是IE，所以设置元素的Alpha滤镜
+        elem.style.filter = 'alpha(opacity='+ level +')';
+    }else {
+        //否则，使用W3C的opacity属性
+        elem.style.opacity = level/100;
+    }
+}
 
 
 //--------------------------
