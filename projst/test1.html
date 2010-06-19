@@ -10,34 +10,27 @@
     <style type="text/css" media="screen">
         #box{
             width:100px;
-            background:#999;
-            height:100px;
-        }
-        .box2{
-            width:160px;
-            height:160px;
-            background:#000;
-        }
-        .box4{
-            padding:50px 0 0 50px;
-            background:#f00;
+            height:300px;
         }
     </style>
 </head>
 <body>
     <div id="box" style="">
-    </div>
-    <div class="box2">
-    </div>
-    <div class="box2">
-    </div>
-    <div class="box4">
-        <div id="box3" class="box2"></div>
+        0,0
     </div>
     <script type="text/javascript">
-        var d = id('box3');
-        //var px = posY(d);
-        setOpacity(d,50);
+        var d = id('box');
+        //setOpacity(d,50);
+        //slideDown(d);
+        //fadeOut(d);
+
+        var body = tag('html')[0];
+        body.onmousemove = function(e){
+            //console.log(e);
+            //console.log(getX(e), getY(e));
+            //d.innerHTML = getX(e) +','+ getY(e); 
+        }
+        d.innerHTML = pageWidth() +','+ pageHeight();
     </script>
 </body>
 </html>

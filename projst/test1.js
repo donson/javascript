@@ -162,7 +162,7 @@ function isDomReady(){
 function getStyle(elem,name){
     if(elem.style[name]){
         //如果属性存在于style[]中，那么它已经被设置了（并且是当前的）
-        return elem.sytle[name];
+        return elem.style[name];
     }else if(elem.currentStyle){
         //否则，尝试使用IE的方法
         return elem.currentStyle[name];
@@ -285,7 +285,7 @@ function hide (elem) {
 }
 function show (elem) {
     //设置display属性为它的原始值，如没有记录原始值，则使用block
-    elem.style.display = elem.$oldDisplay || '';
+    elem.style.display = elem.$oldDisplay || 'block';
 }
 //调节元素透明度
 function setOpacity (elem, level) {
@@ -296,6 +296,67 @@ function setOpacity (elem, level) {
         //否则，使用W3C的opacity属性
         elem.style.opacity = level/100;
     }
+}
+//向下滑动 page 119
+function slideDown (elem) {
+    var h = fullHeight(elem);
+    elem.style.height = '0px';
+    show(elem);
+    for (var i = 0; i <= 100; i++) {
+        (function () {
+            var pos = i;
+            setTimeout(function() {
+                elem.style.height = ((pos/100) * h) + 'px';
+            }, (pos+1) * 10);
+        })();
+    }
+}
+//渐显
+function fadeIn (elem) {
+    setOpacity(elem, 0);
+    show(elem);
+    for (var i = 0; i <= 100; i++) {
+        (function () {
+            var pos = i;
+            setTimeout(function() {
+                setOpacity(elem, pos);
+            }, (pos+1) * 10);
+        })();
+    }
+}
+//渐隐
+function fadeOut (elem) {
+    for (var i = 100; i >= 0; i--) {
+        (function () {
+            var pos = i;
+            setTimeout(function() {
+                setOpacity(elem, pos);
+            }, (101-pos) * 10);
+        })();
+    }
+}
+//获取鼠标相对于整个页面的当前位置 page 120
+function getX (e) {
+    e = e || window.event;
+    return e.pageX || e.clientX + document.body.scrollLeft;
+}
+function getY (e) {
+    e = e || window.event;
+    return e.pageY || e.clientY + document.body.scrollTop;
+}
+//获取鼠标相对于当前元素位置
+function getElementX (e) {
+    return (e && e.layerX) || window.event.offsetX;
+}
+function getElementY (e) {
+    return (e && e.layerY) || window.event.offsetY;
+}
+//页面尺寸
+function pageWidth () {
+    return document.body.scrollWidth;
+}
+function pageHeight () {
+    return document.body.scrollHeight;
 }
 
 
