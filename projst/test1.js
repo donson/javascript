@@ -358,6 +358,31 @@ function pageWidth () {
 function pageHeight () {
     return document.body.scrollHeight;
 }
+//滚动条位置
+function scrollX () {
+    //一个快捷方式，用在IE6/IE7的严格模式中
+    var de = document.documentElement;
+    //如果浏览器存在pageXOffset属性，则使用它
+    //否则，尝试获取根节点的左端滚动的偏移量
+    //最后，尝试获取body元素的左端滚动的偏移量
+    return self.pageXOffset || (de && de.scrollLeft) || document.body.scrollLeft;
+}
+function scrollY () {
+    var de = document.documentElement;
+    return self.pageYOffset || (de && de.scrollTop) || document.body.scrollTop;
+}
+//移动滚动条
+//window.scrollTo(0,pageY(document.getElementById('body')))
+
+//获取视口的宽度和高度
+function windowWidth () {
+    var de = document.documentElement;
+    return self.innerWidth || (de && de.clientWidth) || document.body.clientWidth;
+}
+function windowHeight () {
+    var de = document.documentElement;
+    return self.innerHeight || (de && de.clientHeight) || document.body.clientHeight;
+}
 
 
 //--------------------------
