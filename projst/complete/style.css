@@ -1,0 +1,11 @@
+#results{
+    width:100px;
+    height:200px;
+    border:1px solid #999;
+    background:#FFF;
+    display:none;
+}
+#loading{
+    display:none;
+}
+

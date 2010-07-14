@@ -14,11 +14,15 @@
         cur = cur.nextSibling;  //遍历子节点
     }
 }*/
+rtrim = /^(\s|\u00A0)+|(\s|\u00A0)+$/g;
 
 //基本Dom操作
 function id(name){
     return document.getElementById(name);
 }                                      
+function trim(text) {
+    return (text || "").replace(rtrim, '');
+}
 function tag(name,elem){
     return (elem || document).getElementsByTagName(name);
 }
